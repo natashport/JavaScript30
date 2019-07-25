@@ -15,7 +15,38 @@
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json'
+  const cities = []
+  const inputToMatch = document.querySelector('.search')
+  const suggestions = document.querySelector('.suggestions')
+
+  fetch(endpoint)
+    .then(data => data.json())
+    .then(jsonData => cities.push(...jsonData))
+
+  function findMatches(textToMatch, cities) {
+    regexp = new RegExp(textToMatch, 'gi')
+    return cities.filter(item => item.city.match(regexp) || item.state.match(regexp))
+  }
+
+  function showMatches() {
+    const matchedArray = findMatches(this.value, cities)
+    const suggestionList = matchedArray.map(suggestionItem => {
+      const regexp = new RegExp(this.value, 'gi')
+      const suggestionCity = suggestionItem.city.replace(regexp, `<span class="hl">${this.value}</span>`)
+      const suggestionState = suggestionItem.state.replace(regexp, `<span class="hl">${this.value}</span>`)
+
+        return `
+          <li>
+            <span class="name">${suggestionCity}, ${suggestionState}</span>
+            <span class="population">${suggestionItem.population}</span></li>`
+    }).join('')
+    suggestions.innerHTML = suggestionList
+
+  }
+
+  inputToMatch.addEventListener('keyup', showMatches)
+
 
 </script>
 </body>
