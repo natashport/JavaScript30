@@ -64,12 +64,13 @@
       const bAge = (b.passed - b.year)
       return aAge > bAge ? -1 : 1
       }
-    ).map(i => {
-      const fullData = {...i}
-      fullData.age = (i.passed - i.year)
-      return fullData
+    ).map(i => { 
+      return {
+        ...i,
+        age: (i.passed - i.year)
+      }
     })
-    // console.table(inventorsSortedByAge)
+    //console.table(inventorsSortedByAge)
 
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
@@ -92,14 +93,22 @@
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-    const sum = data.reduce((obj, i) => {
-      if(!obj[i]) {
-        obj[i] = 0
-      }
-      obj[i]++
-      return obj
-    }, {})
-    console.log(sum)
+    // const sum = data.reduce((obj, i) => {
+    //   if(!obj[i]) {
+    //     obj[i] = 0
+    //   }
+    //   obj[i]++
+    //   return obj
+    // }, {})
+    //console.log(sum)
+      const listOfCars = data.reduce((acc, val) => {
+        var numOfCars = acc[val] ? (acc[val]+1) : 1
+        return {
+          ...acc,
+          [val]: numOfCars
+        }
+      },{})
+      console.log(listOfCars)
   </script>
 </body>
 </html>
