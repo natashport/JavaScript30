@@ -125,8 +125,41 @@ for (let i = 0; i < 3; i++) {
 
 //Now we must get a string separated by commas with all the songs that have a duration superior to 3 minutes.
 const arrayOfLongSongs = allSongs.filter(song => (song.duration/60) > 3).map(s => s.name )
-console.log(arrayOfLongSongs.join(', '))
+//console.log(arrayOfLongSongs.join(', '))
  
+ //Remove dublicates from Array
+
+const sourceArray = [2, 5, 6, 7, 8, 5, 2, 5, 9]
+const resArr = []
+//#1 function getRes(arr) {
+//   arr.filter(val => !(resArr.includes(val)) ? resArr.push(val) : false)
+//   return resArr
+// } 
+// console.log(getRes(sourceArray))
+
+//#2 let len = sourceArray.length
+// sourceArray.sort()
+// let temp = 0
+// for (let i=0; i<len; i++) {
+//   if( sourceArray[i] !== temp) {
+//     temp = sourceArray[i]
+//     resArr.push(sourceArray[i]) 
+//   }
+// }
+// console.log(resArr)
+
+//#3 obj = {}
+// for(let i of sourceArray) {
+//   obj[i] = true
+// }
+// console.log(obj)
+// let b = Object.keys(obj)
+// console.log(b)
+
+let bSet = [... new Set(sourceArray)]
+console.log(bSet)
+
+
   </script>
 </body>
 </html>
